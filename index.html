@@ -83,6 +83,11 @@ button{font:inherit;color:inherit}
 /* featured */
 .featured{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:0;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);overflow:hidden;cursor:pointer;text-align:left;padding:0;width:100%;margin-bottom:22px;transition:border-color .2s}
 .featured:hover{border-color:var(--accent)}
+.featured-row{margin-bottom:22px}
+.featured-row .featured{margin-bottom:0}
+.featured-row.multi{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.featured-row.multi .featured.portrait{grid-template-columns:minmax(0,46%) minmax(0,1fr)}
+.featured-row.multi .featured h3{font-size:19px}
 .featured .thumb{aspect-ratio:16/9}
 .featured.portrait{grid-template-columns:minmax(0,240px) minmax(0,1fr)}
 .featured.portrait .thumb{aspect-ratio:9/16}
@@ -128,6 +133,7 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
 @media (max-width:1100px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){
   .page{grid-template-columns:1fr;padding-top:16px}
+  .featured-row.multi{grid-template-columns:1fr}
   .featured,.featured.portrait{grid-template-columns:1fr}
   .featured.portrait .thumb{max-height:70vh;aspect-ratio:auto;height:70vh}
   .profile{position:static}
@@ -229,15 +235,15 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
 /* ============================================================
    SETTINGS — the only part Vivek ever needs to touch.
    Paste the Google Sheet "Publish to web" CSV link between the quotes.
-   Sheet columns: Title | Category | Drive link | Description | Featured (yes) | More (yes = hidden behind "Show more")
+   Sheet columns: Title | Category | Drive link | Description | Featured (1, 2… = order on top) | More (yes = hidden behind "Show more") | Shape (Vertical/Horizontal/Square, optional override)
    Videos appear in the order listed.
    If left empty (or the sheet can't load), the list below is used.
    ============================================================ */
 const SHEET_CSV_URL = "";
 
 const DEFAULT_VIDEOS = [
-  ["Dhathri · Brand ad","Ads","https://drive.google.com/file/d/1mV81PSgJvtVW0gDrgBT6Je6OnA6tAUq-/view","Ayurveda product ad"],
-  ["Logic · Brand ad","Ads","https://drive.google.com/file/d/1ppcY6ZAVuJvIcI0UF0CebBGxlF2EuH-5/view","Meta ad for a commerce coaching institute"],
+  ["Dhathri · Brand ad","Ads","https://drive.google.com/file/d/1mV81PSgJvtVW0gDrgBT6Je6OnA6tAUq-/view","Ayurveda product ad","2"],
+  ["Logic · Brand ad","Ads","https://drive.google.com/file/d/1ppcY6ZAVuJvIcI0UF0CebBGxlF2EuH-5/view","Meta ad for a commerce coaching institute","","","Horizontal"],
   ["Compass Clinic · Family support","Ads","https://drive.google.com/file/d/19He-rwEe1hy2ZHN9SFuuSNw5znOFZOw6/view","Meta lead ad with call-to-action end card"],
   ["Luminor Dental · Toothpaste","Ads","https://drive.google.com/file/d/1tWRjAR_ZmRCFwopYedFjSMHYfrrLFWBm/view","Product ad"],
   ["LedgerX · Business ad","Ads","https://drive.google.com/file/d/1EbfVRkwbDG1y3YIoprHnh09OQrkoVOOL/view","Promo ad for an accounting firm"],
@@ -254,7 +260,7 @@ const DEFAULT_VIDEOS = [
   ["LedgerX · February campaign","Brand films","https://drive.google.com/file/d/1IN3sBm-IqAG9Y3e2Vpu6CU9Z1y6QXWy6/view","Brand theme video"],
   ["LedgerX · Theme reel","Brand films","https://drive.google.com/file/d/13fZ0g7N93Nhtc_8LazHFNkCGuvjN_7I3/view","Brand theme video"],
   ["Dhathri · Myactin, YouTube cut","Brand films","https://drive.google.com/file/d/17_sZp-BQK3uzpJDcP_dcazoaV8d0DVoC/view","Campaign reframed for YouTube","","yes"],
-  ["Eight Times Eight · Shark Tank","Reels","https://drive.google.com/file/d/1PYEINyPS9L-zvoAsjhKrdVsyKOQSKbUs/view","Reel for the brand's Shark Tank feature","yes"],
+  ["Eight Times Eight · Shark Tank","Reels","https://drive.google.com/file/d/1PYEINyPS9L-zvoAsjhKrdVsyKOQSKbUs/view","Reel for the brand's Shark Tank feature","1"],
   ["RCM Eye Hospital · Arcus senilis","Reels","https://drive.google.com/file/d/1jt3c_ZlCBN1_TiD54HFhLMnNZNIlzoQ7/view","Eye-care awareness reel"],
   ["GMRL Labs · Blood tests after 40","Reels","https://drive.google.com/file/d/1CJ0Kd-9qERPYs6SZ2sFBIW-LRlmpEpLp/view","Diagnostic lab health-awareness reel"],
   ["Dr Niranjana · Why are my hands cold?","Reels","https://drive.google.com/file/d/1pxV7tQJbFP42YlO7jTV5OttcIYy1BeZn/view","Doctor-led health tip"],
@@ -293,8 +299,8 @@ function parseCSV(text){
 function fromRows(rows){
   const head=rows[0].map(h=>h.trim().toLowerCase());
   const col=(...names)=>head.findIndex(h=>names.some(n=>h.includes(n)));
-  const ti=col("title","name"), ci=col("category","type"), li=col("link","url","drive"), di=col("description","client","note"), fi=col("featured"), mi=col("more");
-  return rows.slice(1).map(r=>({title:(r[ti]||"").trim(), cat:normCat(r[ci]), id:driveId(r[li]), sub:di>=0?(r[di]||"").trim():"", featured:fi>=0&&/^(y|yes|true|1)$/i.test((r[fi]||"").trim()), more:mi>=0&&/^(y|yes|true|1)$/i.test((r[mi]||"").trim())}))
+  const ti=col("title","name"), ci=col("category","type"), li=col("link","url","drive"), di=col("description","client","note"), fi=col("featured"), mi=col("more"), si=col("shape");
+  return rows.slice(1).map(r=>({title:(r[ti]||"").trim(), cat:normCat(r[ci]), id:driveId(r[li]), sub:di>=0?(r[di]||"").trim():"", featured:fi>=0&&/^(y|yes|true|1)$/i.test((r[fi]||"").trim()), more:mi>=0&&/^(y|yes|true|1)$/i.test((r[mi]||"").trim()), shape:si>=0?(r[si]||"").trim():""}))
              .filter(v=>v.id);
 }
 
@@ -305,7 +311,7 @@ async function loadVideos(){
       if(res.ok){ const list=fromRows(parseCSV(await res.text())); if(list.length) return list; }
     }catch(e){ console.warn("Sheet could not load, using built-in list", e); }
   }
-  return DEFAULT_VIDEOS.map(([title,cat,link,sub,f,mo])=>({title,cat:normCat(cat),id:driveId(link),sub,featured:!!f,more:!!mo}));
+  return DEFAULT_VIDEOS.map(([title,cat,link,sub,f,mo,sh])=>({title,cat:normCat(cat),id:driveId(link),sub,featured:!!f,rank:parseInt(f)||99,more:!!mo,shape:sh||""}));
 }
 
 const grid=document.getElementById("grid"), tabsEl=document.getElementById("tabs"), countEl=document.getElementById("count");
@@ -319,7 +325,7 @@ function card(v){
   b.querySelector(".info b").textContent=v.title||"Untitled";
   b.querySelector(".info span").textContent=v.sub||"";
   const img=b.querySelector("img"), th=b.querySelector(".thumb");
-  img.onload=()=>{ if(img.naturalWidth&&img.naturalHeight){ const r=img.naturalWidth/img.naturalHeight; v.portrait=r<1; th.style.aspectRatio=img.naturalWidth+"/"+img.naturalHeight; const f=b.querySelector(".fmt"); f.textContent=r<0.9?"Vertical":r<1.15?"Square":"Horizontal"; f.classList.add("on"); } img.classList.add("loaded"); };
+  img.onload=()=>{ if(img.naturalWidth&&img.naturalHeight){ const r=SHAPE_R[v.shape.toLowerCase()]||img.naturalWidth/img.naturalHeight; v.portrait=r<1; th.style.aspectRatio=String(r); const f=b.querySelector(".fmt"); f.textContent=r<0.9?"Vertical":r<1.15?"Square":"Horizontal"; f.classList.add("on"); } img.classList.add("loaded"); };
   img.onerror=()=>{ th.style.aspectRatio="16/9"; th.insertAdjacentHTML("beforeend",'<span class="fallback">Preview unavailable.<br>Check the file is shared as “Anyone with the link”.</span>'); };
   img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w800`;
   b.onclick=()=>openPlayer(v);
@@ -327,6 +333,7 @@ function card(v){
 }
 
 const CATS=()=>[...new Set(VIDEOS.map(v=>v.cat))].sort((a,b)=>{const ia=ORDER.indexOf(a), ib=ORDER.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib);});
+const SHAPE_R={vertical:9/16,horizontal:16/9,square:1};
 const gridOf=list=>{ const g=document.createElement("div"); g.className="grid"; g.replaceChildren(...list.map(card)); return g; };
 const expanded=new Set();
 function block(c,list){
@@ -343,11 +350,10 @@ function block(c,list){
 }
 
 function render(){
-  const feat=VIDEOS.find(v=>v.featured);
   grid.replaceChildren();
   if(current==="All"){
     CATS().forEach(c=>{
-      const list=VIDEOS.filter(v=>v.cat===c && v!==feat); if(!list.length) return;
+      const list=VIDEOS.filter(v=>v.cat===c && !v.featured); if(!list.length) return;
       const sec=document.createElement("div"); sec.className="section";
       const h=document.createElement("div"); h.className="section-head";
       h.innerHTML="<h3></h3><span></span>"; h.querySelector("h3").textContent=c; h.querySelector("span").textContent=list.length+(list.length===1?" video":" videos");
@@ -371,14 +377,19 @@ function buildTabs(){
 }
 
 function buildFeatured(){
-  const v=VIDEOS.find(x=>x.featured), host=document.getElementById("featured");
-  if(!v){ host.remove(); return; }
-  const b=document.createElement("button"); b.className="featured"; b.type="button";
-  b.innerHTML='<div class="thumb"><img alt="" loading="eager" referrerpolicy="no-referrer"><span class="play"></span></div><div class="fbody"><span class="kicker"></span><h3></h3><p></p><span class="watch">▶ Watch</span></div>';
-  b.querySelector(".kicker").textContent="Featured · "+v.cat;
-  b.querySelector("h3").textContent=v.title; b.querySelector("p").textContent=v.sub||"";
-  const img=b.querySelector("img"); img.onload=()=>{ if(img.naturalHeight>img.naturalWidth){ b.classList.add("portrait"); v.portrait=true; } img.classList.add("loaded"); }; img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w1280`;
-  b.onclick=()=>openPlayer(v); host.replaceChildren(b);
+  const list=VIDEOS.filter(x=>x.featured).sort((a,b)=>(a.rank||99)-(b.rank||99)), host=document.getElementById("featured");
+  if(!list.length){ host.remove(); return; }
+  host.className="featured-row"+(list.length>1?" multi":"");
+  host.replaceChildren(...list.map(v=>{
+    const b=document.createElement("button"); b.className="featured"; b.type="button";
+    b.innerHTML='<div class="thumb"><img alt="" loading="eager" referrerpolicy="no-referrer"><span class="play"></span></div><div class="fbody"><span class="kicker"></span><h3></h3><p></p><span class="watch">▶ Watch</span></div>';
+    b.querySelector(".kicker").textContent="Featured · "+v.cat;
+    b.querySelector("h3").textContent=v.title; b.querySelector("p").textContent=v.sub||"";
+    const img=b.querySelector("img");
+    img.onload=()=>{ const r=SHAPE_R[v.shape.toLowerCase()]||img.naturalWidth/img.naturalHeight; if(r<1){ b.classList.add("portrait"); v.portrait=true; } img.classList.add("loaded"); };
+    img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w1280`;
+    b.onclick=()=>openPlayer(v); return b;
+  }));
 }
 
 function buildClients(){
@@ -391,7 +402,7 @@ function buildClients(){
 
 const modal=document.getElementById("modal"), frame=document.getElementById("frame"), player=document.getElementById("player");
 function openPlayer(v){
-  player.classList.toggle("portrait", !!v.portrait);
+  player.classList.toggle("portrait", v.shape ? v.shape.toLowerCase()==="vertical" : !!v.portrait);
   frame.src=`https://drive.google.com/file/d/${v.id}/preview`;
   document.getElementById("ptitle").textContent=v.title;
   document.getElementById("plink").href=`https://drive.google.com/file/d/${v.id}/view`;
