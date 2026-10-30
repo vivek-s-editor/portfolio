@@ -84,6 +84,8 @@ button{font:inherit;color:inherit}
 .featured{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:0;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);overflow:hidden;cursor:pointer;text-align:left;padding:0;width:100%;margin-bottom:22px;transition:border-color .2s}
 .featured:hover{border-color:var(--accent)}
 .featured .thumb{aspect-ratio:16/9}
+.featured.portrait{grid-template-columns:minmax(0,240px) minmax(0,1fr)}
+.featured.portrait .thumb{aspect-ratio:9/16}
 .featured .fbody{padding:22px;display:flex;flex-direction:column;justify-content:center;gap:8px}
 .kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .featured h3{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
@@ -126,7 +128,8 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
 @media (max-width:1100px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){
   .page{grid-template-columns:1fr;padding-top:16px}
-  .featured{grid-template-columns:1fr}
+  .featured,.featured.portrait{grid-template-columns:1fr}
+  .featured.portrait .thumb{max-height:70vh;aspect-ratio:auto;height:70vh}
   .profile{position:static}
 }
 @media (max-width:520px){
@@ -233,7 +236,6 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
 const SHEET_CSV_URL = "";
 
 const DEFAULT_VIDEOS = [
-  ["Eight Times Eight · Shark Tank episode","Long-form","https://drive.google.com/file/d/1PYEINyPS9L-zvoAsjhKrdVsyKOQSKbUs/view","Full episode edit for a Shark Tank feature","yes",""],
   ["Dhathri × Times of India","Long-form","https://drive.google.com/file/d/1-bc7uLi0RFW9B-W_NKnW0zPMzB2UCzGY/view","Brand interview, cut down for social","",""],
   ["Dr Nikhil · Choosing the right toothbrush","Long-form","https://drive.google.com/file/d/1NSb98Ed1U59J6ZVXrFeAqqEuRXaWOTiF/view","Doctor-led explainer, podcast format","",""],
   ["Dhathri · Brand ad","Ads","https://drive.google.com/file/d/1mV81PSgJvtVW0gDrgBT6Je6OnA6tAUq-/view","Ayurveda product ad","",""],
@@ -252,6 +254,7 @@ const DEFAULT_VIDEOS = [
   ["LedgerX · February campaign","Campaigns","https://drive.google.com/file/d/1IN3sBm-IqAG9Y3e2Vpu6CU9Z1y6QXWy6/view","Brand theme video","",""],
   ["LedgerX · Theme reel","Campaigns","https://drive.google.com/file/d/13fZ0g7N93Nhtc_8LazHFNkCGuvjN_7I3/view","Brand theme video","",""],
   ["Dhathri · Myactin, YouTube cut","Campaigns","https://drive.google.com/file/d/17_sZp-BQK3uzpJDcP_dcazoaV8d0DVoC/view","Campaign reframed for YouTube","","yes"],
+  ["Eight Times Eight · Shark Tank","Reels","https://drive.google.com/file/d/1PYEINyPS9L-zvoAsjhKrdVsyKOQSKbUs/view","Reel for the brand's Shark Tank feature","yes",""],
   ["RCM Eye Hospital · Arcus senilis","Reels","https://drive.google.com/file/d/1jt3c_ZlCBN1_TiD54HFhLMnNZNIlzoQ7/view","Eye-care awareness reel","",""],
   ["Dhathri · Customer story (Neethu)","Reels","https://drive.google.com/file/d/1yEds9j5e0wjWZreH26GCXT4DhzyyiAWt/view","Testimonial reel","",""],
   ["GMRL Labs · Blood tests after 40","Reels","https://drive.google.com/file/d/1CJ0Kd-9qERPYs6SZ2sFBIW-LRlmpEpLp/view","Diagnostic lab health-awareness reel","",""],
@@ -371,10 +374,10 @@ function buildFeatured(){
   const v=VIDEOS.find(x=>x.featured), host=document.getElementById("featured");
   if(!v){ host.remove(); return; }
   const b=document.createElement("button"); b.className="featured"; b.type="button";
-  b.innerHTML='<div class="thumb"><img alt="" loading="eager" referrerpolicy="no-referrer"><span class="play"></span></div><div class="fbody"><span class="kicker"></span><h3></h3><p></p><span class="watch">▶ Watch the episode</span></div>';
+  b.innerHTML='<div class="thumb"><img alt="" loading="eager" referrerpolicy="no-referrer"><span class="play"></span></div><div class="fbody"><span class="kicker"></span><h3></h3><p></p><span class="watch">▶ Watch</span></div>';
   b.querySelector(".kicker").textContent="Featured · "+v.cat;
   b.querySelector("h3").textContent=v.title; b.querySelector("p").textContent=v.sub||"";
-  const img=b.querySelector("img"); img.onload=()=>img.classList.add("loaded"); img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w1280`;
+  const img=b.querySelector("img"); img.onload=()=>{ if(img.naturalHeight>img.naturalWidth){ b.classList.add("portrait"); v.portrait=true; } img.classList.add("loaded"); }; img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w1280`;
   b.onclick=()=>openPlayer(v); host.replaceChildren(b);
 }
 
