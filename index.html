@@ -316,7 +316,7 @@ function card(v){
   b.querySelector(".info b").textContent=v.title||"Untitled";
   b.querySelector(".info span").textContent=v.sub||"";
   const img=b.querySelector("img"), th=b.querySelector(".thumb");
-  img.onload=()=>{ if(img.naturalWidth&&img.naturalHeight){ const r=img.naturalWidth/img.naturalHeight; v.portrait=r<1; th.style.aspectRatio=img.naturalWidth+"/"+img.naturalHeight; const f=b.querySelector(".fmt"); f.textContent=r<0.7?"9:16":r<0.9?"4:5":r<1.15?"1:1":"16:9"; f.classList.add("on"); } img.classList.add("loaded"); };
+  img.onload=()=>{ if(img.naturalWidth&&img.naturalHeight){ const r=img.naturalWidth/img.naturalHeight; v.portrait=r<1; th.style.aspectRatio=img.naturalWidth+"/"+img.naturalHeight; const f=b.querySelector(".fmt"); f.textContent=r<0.9?"Vertical":r<1.15?"Square":"Horizontal"; f.classList.add("on"); } img.classList.add("loaded"); };
   img.onerror=()=>{ th.style.aspectRatio="16/9"; th.insertAdjacentHTML("beforeend",'<span class="fallback">Preview unavailable.<br>Check the file is shared as “Anyone with the link”.</span>'); };
   img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w800`;
   b.onclick=()=>openPlayer(v);
