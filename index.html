@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vivek S · Video Editor</title>
-<meta name="description" content="Vivek S, video editor for Reels, podcasts and Meta ads. Kerala, India. Available to join immediately.">
+<meta name="description" content="Vivek S, video editor for long-form episodes, Meta ads and Reels. 30+ client projects. Kerala, India.">
 <meta property="og:title" content="Vivek S · Video Editor">
-<meta property="og:description" content="Reels, podcasts and Meta ads cut for retention. Available to join immediately.">
+<meta property="og:description" content="Long-form episodes, Meta ads and Reels for brands and agencies.">
 <meta property="og:image" content="vivek.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0b0b0f">
@@ -80,6 +80,34 @@ button{font:inherit;color:inherit}
 .info span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
 .empty{color:var(--muted);padding:40px 0}
 
+/* featured */
+.featured{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:0;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);overflow:hidden;cursor:pointer;text-align:left;padding:0;width:100%;margin-bottom:22px;transition:border-color .2s}
+.featured:hover{border-color:var(--accent)}
+.featured .thumb{aspect-ratio:16/9}
+.featured .fbody{padding:22px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.featured h3{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.featured p{margin:0;color:var(--muted)}
+.featured .watch{margin-top:6px;font-weight:600;font-size:14px;color:var(--fg)}
+.clients{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--muted);font-size:13.5px;font-weight:600;margin:0 0 24px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.clients .label{margin:0 6px 0 0;align-self:center}
+.tab small{font-weight:500;opacity:.7;margin-left:4px}
+.section{margin-bottom:30px}
+.more-btn{display:block;width:100%;padding:12px;border-radius:12px;border:1px dashed var(--line);background:transparent;color:var(--muted);font-weight:600;font-size:14px;cursor:pointer;margin-top:2px}
+.more-btn:hover{border-color:var(--accent);color:var(--fg)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px}
+.section-head h3{margin:0;font-size:18px;font-weight:700}
+.section-head span{color:var(--muted);font-size:13px}
+.fmt{position:absolute;right:10px;top:10px;font-size:11px;font-weight:700;padding:4px 8px;border-radius:999px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);color:#ddd;display:none}
+.fmt.on{display:block}
+.process{margin-top:10px;border-top:1px solid var(--line);padding-top:26px}
+.process h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin:0 0 14px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;counter-increment:s}
+.steps li::before{content:"0" counter(s);display:block;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.steps b{display:block;font-size:14.5px;margin-bottom:4px}
+.steps span{font-size:13px;color:var(--muted)}
+.exp li em{font-style:normal;font-size:12.5px;color:#c9c9d3}
 footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padding-top:20px}
 
 /* modal */
@@ -95,8 +123,10 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
 .player-bar a{color:var(--accent);font-size:13px;white-space:nowrap}
 .close{position:absolute;top:-44px;right:0;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:20px;line-height:1}
 
+@media (max-width:1100px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){
   .page{grid-template-columns:1fr;padding-top:16px}
+  .featured{grid-template-columns:1fr}
   .profile{position:static}
 }
 @media (max-width:520px){
@@ -104,6 +134,8 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
   .card{margin-bottom:10px}
   .info{padding:10px 11px 12px}
   .work-head h2{font-size:24px}
+  .steps{grid-template-columns:1fr}
+  .featured .fbody{padding:16px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -114,15 +146,15 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
     <img class="avatar" src="vivek.jpg" alt="Vivek S">
     <div>
       <h1 class="name">Vivek S</h1>
-      <p class="role">Video Editor · Reels, Podcasts &amp; Meta Ads</p>
+      <p class="role">Video Editor · Long-form, Ads &amp; Reels</p>
     </div>
     <span class="badge"><i></i>Available to join immediately</span>
-    <p class="bio">I edit short-form and long-form content for agencies and brands, turning raw footage into tightly paced, retention-first cuts. Premiere Pro and DaVinci Resolve, with same-day turnarounds.</p>
+    <p class="bio">I edit for agencies and brands: full episodes, Meta ad creative and Reels. Most of my work has been for healthcare, education and D2C clients, often several accounts at once on same-day or next-day deadlines.</p>
     <div class="meta"><span>📍 Kerala, India</span><span>🗣 English, Malayalam</span></div>
     <div class="stats">
       <div class="stat"><b>2+ yrs</b><span>professional editing</span></div>
-      <div class="stat"><b>13</b><span>clients handled at once</span></div>
-      <div class="stat"><b>24 hr</b><span>turnaround</span></div>
+      <div class="stat"><b>13</b><span>client accounts at once</span></div>
+      <div class="stat"><b>24 hr</b><span>standard turnaround</span></div>
     </div>
     <div class="actions">
       <a class="btn primary" href="https://wa.me/918089467420?text=Hi%20Vivek%2C%20I%20saw%20your%20portfolio" target="_blank" rel="noopener">
@@ -140,26 +172,42 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
       <p class="label">Tools</p>
       <div class="chips">
         <span class="chip">Premiere Pro</span><span class="chip">DaVinci Resolve</span><span class="chip">Final Cut Pro</span>
-        <span class="chip">After Effects</span><span class="chip">Photoshop</span><span class="chip">ElevenLabs</span><span class="chip">ChatGPT</span>
+        <span class="chip">After Effects</span><span class="chip">Photoshop</span>
+      </div>
+      <p class="label" style="margin-top:14px">AI in the workflow</p>
+      <div class="chips">
+        <span class="chip">ElevenLabs</span><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Gemini</span>
       </div>
     </div>
     <div>
       <p class="label">Experience</p>
       <ul class="exp">
-        <li><b>Video Editor · Hat Innovations</b><span>Kochi · Jul 2025 – Aug 2026</span></li>
-        <li><b>Video Editor · Wonders On Web</b><span>Kochi · Aug 2024 – Apr 2025</span></li>
-        <li><b>Video Editor · MagicMotionMedia</b><span>Kothamangalam · Jan 2024 – May 2024</span></li>
+        <li><b>Video Editor · Hat Innovations</b><span>Kochi · Jul 2025 – Aug 2026</span><em>Up to 13 client accounts: podcasts, Reels and Meta ads</em></li>
+        <li><b>Video Editor · Wonders On Web</b><span>Kochi · Aug 2024 – Apr 2025</span><em>Branded content, wedding films and YouTube Shorts</em></li>
+        <li><b>Video Editor · MagicMotionMedia</b><span>Kothamangalam · Jan 2024 – May 2024</span><em>Multi-camera and drone wedding films</em></li>
       </ul>
     </div>
   </aside>
 
   <section aria-labelledby="work-title">
     <div class="work-head">
-      <h2 id="work-title">My Work</h2>
+      <h2 id="work-title">Selected work</h2>
       <span class="count" id="count"></span>
     </div>
+    <div id="featured"></div>
+    <div class="clients" id="clients"></div>
     <div class="tabs" role="tablist" id="tabs"></div>
-    <div class="grid" id="grid"></div>
+    <div id="grid"></div>
+
+    <div class="process">
+      <h2>How I work</h2>
+      <ol class="steps">
+        <li><b>Brief</b><span>Platform, audience, length and hook agreed before the first cut.</span></li>
+        <li><b>Rough cut</b><span>Transcript-led assembly, so structure is fixed early and fast.</span></li>
+        <li><b>Revisions</b><span>Feedback handled directly with the client, in clear rounds.</span></li>
+        <li><b>Delivery</b><span>Exports per platform: 9:16, 1:1 and 16:9, on a same-day or 24-hour turnaround.</span></li>
+      </ol>
+    </div>
   </section>
 
   <footer>© <span id="yr"></span> Vivek S · Video Editor, Kerala</footer>
@@ -177,51 +225,50 @@ footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padd
 /* ============================================================
    SETTINGS — the only part Vivek ever needs to touch.
    Paste the Google Sheet "Publish to web" CSV link between the quotes.
-   Sheet columns: Title | Category | Drive link | Client (optional)
+   Sheet columns: Title | Category | Drive link | Description | Featured (yes) | More (yes = hidden behind "Show more")
+   Videos appear in the order listed.
    If left empty (or the sheet can't load), the list below is used.
    ============================================================ */
 const SHEET_CSV_URL = "";
 
 const DEFAULT_VIDEOS = [
-  ["Dr Nikhil Dentistry","Podcasts","https://drive.google.com/file/d/1NSb98Ed1U59J6ZVXrFeAqqEuRXaWOTiF/view","Medical education"],
-  ["Dhathri × Times of India","Podcasts","https://drive.google.com/file/d/1-bc7uLi0RFW9B-W_NKnW0zPMzB2UCzGY/view","Interview"],
-  ["LedgerX","Reels","https://drive.google.com/file/d/1EbfVRkwbDG1y3YIoprHnh09OQrkoVOOL/view","Accounting business ad"],
-  ["GMRL Labs","Reels","https://drive.google.com/file/d/1CJ0Kd-9qERPYs6SZ2sFBIW-LRlmpEpLp/view","Medical education"],
-  ["GMRL Labs","Reels","https://drive.google.com/file/d/10YJHtRt6R8BGaLKaJAkyTTJKSvwDzxwk/view","Medical education"],
-  ["Carsaab","Reels","https://drive.google.com/file/d/1YlCyRUWyzQ4eGO7fslqhz43VrQsmJKxv/view","Automotive"],
-  ["Carsaab","Reels","https://drive.google.com/file/d/1S9S3yca_OrmgaSZZqeiLjSIBi8rp3IUJ/view","Automotive"],
-  ["SreeAasram","Reels","https://drive.google.com/file/d/15uoWptzLpMFxkao32ebSnKVRG5q4saIY/view","Medical"],
-  ["RCM Eye Hospital · Arcus Senilis","Reels","https://drive.google.com/file/d/1jt3c_ZlCBN1_TiD54HFhLMnNZNIlzoQ7/view","Medical"],
-  ["Dr Niranjana · Cold Hands","Reels","https://drive.google.com/file/d/1pxV7tQJbFP42YlO7jTV5OttcIYy1BeZn/view","Medical"],
-  ["Dr Niranjana · Bad Breath","Reels","https://drive.google.com/file/d/1KJYTS6CYPLHkbM2wbda2hFy8CnrRChC0/view","Medical"],
-  ["Dhathri · Testimonial (Neethu)","Reels","https://drive.google.com/file/d/1yEds9j5e0wjWZreH26GCXT4DhzyyiAWt/view","Testimonial"],
-  ["Dhathri · Testimonial (Neethu, alt cut)","Reels","https://drive.google.com/file/d/1ogFuGU4DBUmSKglGLNFRmsATEB6M3dK7/view","Testimonial"],
-  ["Dhathri · Testimonial 2","Reels","https://drive.google.com/file/d/1ZKh9eF5AfmLRScJoHQQziKu9ZmM_868j/view","Testimonial"],
-  ["Incredible Art","Reels","https://drive.google.com/file/d/1M54nZWNduyf7e7TfFM-na9c2EZMsYHnW/view","Testimonial"],
-  ["LedgerX · Kuzhimandhi","Reels","https://drive.google.com/file/d/1CgvYOTOB1xoF1RBxkra99avCv547LymM/view","Accounting business"],
-  ["Logic · Felix achievement","Reels","https://drive.google.com/file/d/1Au6rklUqu8d3jx0sh0yIDuRHDY-SEQJQ/view","EdTech"],
-  ["HAT Innovations","Reels","https://drive.google.com/file/d/165L1P97P772-ui4kJ6UqvJ6z9lRwJ0Vq/view","Agency reel"],
-  ["Compass Clinic","Ads","https://drive.google.com/file/d/19He-rwEe1hy2ZHN9SFuuSNw5znOFZOw6/view","Meta ad"],
-  ["LA EL Sound Labs","Ads","https://drive.google.com/file/d/1-5RZjau9BfSQBWpbp-XrX_mRQfqL-6bx/view","Meta ad"],
-  ["Logic","Ads","https://drive.google.com/file/d/1ppcY6ZAVuJvIcI0UF0CebBGxlF2EuH-5/view","Meta ad"],
-  ["House of Ed Tech","Ads","https://drive.google.com/file/d/1H_CFkDnPEfFtF18ACeEtioRL7eyNfoRf/view","EdTech ad"],
-  ["Luminor Dental · Toothpaste","Ads","https://drive.google.com/file/d/1tWRjAR_ZmRCFwopYedFjSMHYfrrLFWBm/view","Product ad"],
-  ["Dhathri · Ad 01","Ads","https://drive.google.com/file/d/1mV81PSgJvtVW0gDrgBT6Je6OnA6tAUq-/view","Ayurveda ad"],
-  ["Dhathri · Hindi","Ads","https://drive.google.com/file/d/135onIVd-JwDhfeeLlOtk0id5s_73mDah/view","Ayurveda ad"],
-  ["Logic · CA Foundation Kit","Ads","https://drive.google.com/file/d/13453gec7kJVb68d4EkPO1TFoNONmAt4X/view","EdTech ad"],
-  ["Logic · CIAP Promo","Ads","https://drive.google.com/file/d/19dNQur93zQj6COzstibOtWj66Bpj68p3/view","EdTech ad"],
-  ["Logic · JK Shah","Ads","https://drive.google.com/file/d/1wOcBRSDdlgfYm4eTI2wQjdRvcBJx9wkk/view","EdTech ad"],
-  ["Dhathri · Valentine's Day","Theme videos","https://drive.google.com/file/d/1wySYzfu6ApXPrm9XpjyOdHj3b2zqfXwa/view","Theme video"],
-  ["Lilfoot · Maternity","Theme videos","https://drive.google.com/file/d/10wxQlACs4DILBtCnEILDhzYY9qikleM8/view","Theme video"],
-  ["LedgerX · Accounting","Theme videos","https://drive.google.com/file/d/1IN3sBm-IqAG9Y3e2Vpu6CU9Z1y6QXWy6/view","Theme video"],
-  ["LedgerX · Theme reel","Theme videos","https://drive.google.com/file/d/13fZ0g7N93Nhtc_8LazHFNkCGuvjN_7I3/view","Theme video"],
-  ["Dhathri · Myactin (Jayaraj)","Theme videos","https://drive.google.com/file/d/1unA1tX4Aw0EabKyb-g4KlfCNomMBDLXX/view","Theme video"],
-  ["Dhathri · Myactin (YouTube)","Theme videos","https://drive.google.com/file/d/17_sZp-BQK3uzpJDcP_dcazoaV8d0DVoC/view","Theme video"]
+  ["Eight Times Eight · Shark Tank episode","Long-form","https://drive.google.com/file/d/1PYEINyPS9L-zvoAsjhKrdVsyKOQSKbUs/view","Full episode edit for a Shark Tank feature","yes",""],
+  ["Dhathri × Times of India","Long-form","https://drive.google.com/file/d/1-bc7uLi0RFW9B-W_NKnW0zPMzB2UCzGY/view","Brand interview, cut down for social","",""],
+  ["Dr Nikhil · Choosing the right toothbrush","Long-form","https://drive.google.com/file/d/1NSb98Ed1U59J6ZVXrFeAqqEuRXaWOTiF/view","Doctor-led explainer, podcast format","",""],
+  ["Dhathri · Brand ad","Ads","https://drive.google.com/file/d/1mV81PSgJvtVW0gDrgBT6Je6OnA6tAUq-/view","Ayurveda product ad","",""],
+  ["Logic · Brand ad","Ads","https://drive.google.com/file/d/1ppcY6ZAVuJvIcI0UF0CebBGxlF2EuH-5/view","Meta ad for a commerce coaching institute","",""],
+  ["Compass Clinic · Family support","Ads","https://drive.google.com/file/d/19He-rwEe1hy2ZHN9SFuuSNw5znOFZOw6/view","Meta lead ad with call-to-action end card","",""],
+  ["Luminor Dental · Toothpaste","Ads","https://drive.google.com/file/d/1tWRjAR_ZmRCFwopYedFjSMHYfrrLFWBm/view","Product ad","",""],
+  ["Dhathri · Hindi version","Ads","https://drive.google.com/file/d/135onIVd-JwDhfeeLlOtk0id5s_73mDah/view","Same campaign, re-cut for a Hindi audience","",""],
+  ["LA EL Sound Labs","Ads","https://drive.google.com/file/d/1-5RZjau9BfSQBWpbp-XrX_mRQfqL-6bx/view","Meta ad, 16:9 placement","",""],
+  ["Logic · CA Foundation kit","Ads","https://drive.google.com/file/d/13453gec7kJVb68d4EkPO1TFoNONmAt4X/view","Course launch ad","",""],
+  ["House of Ed Tech","Ads","https://drive.google.com/file/d/1H_CFkDnPEfFtF18ACeEtioRL7eyNfoRf/view","EdTech promo","",""],
+  ["Logic · CIAP promo","Ads","https://drive.google.com/file/d/19dNQur93zQj6COzstibOtWj66Bpj68p3/view","Course promo","","yes"],
+  ["Logic · JK Shah","Ads","https://drive.google.com/file/d/1wOcBRSDdlgfYm4eTI2wQjdRvcBJx9wkk/view","Partner course ad","","yes"],
+  ["Dhathri · Myactin campaign","Campaigns","https://drive.google.com/file/d/1unA1tX4Aw0EabKyb-g4KlfCNomMBDLXX/view","Product campaign film, graded in DaVinci Resolve","",""],
+  ["Lilfoot · Maternity","Campaigns","https://drive.google.com/file/d/10wxQlACs4DILBtCnEILDhzYY9qikleM8/view","Maternity shoot film for a kids' brand","",""],
+  ["Dhathri · Valentine's Day","Campaigns","https://drive.google.com/file/d/1wySYzfu6ApXPrm9XpjyOdHj3b2zqfXwa/view","Seasonal campaign","",""],
+  ["LedgerX · February campaign","Campaigns","https://drive.google.com/file/d/1IN3sBm-IqAG9Y3e2Vpu6CU9Z1y6QXWy6/view","Brand theme video","",""],
+  ["LedgerX · Theme reel","Campaigns","https://drive.google.com/file/d/13fZ0g7N93Nhtc_8LazHFNkCGuvjN_7I3/view","Brand theme video","",""],
+  ["Dhathri · Myactin, YouTube cut","Campaigns","https://drive.google.com/file/d/17_sZp-BQK3uzpJDcP_dcazoaV8d0DVoC/view","Campaign reframed for YouTube","","yes"],
+  ["RCM Eye Hospital · Arcus senilis","Reels","https://drive.google.com/file/d/1jt3c_ZlCBN1_TiD54HFhLMnNZNIlzoQ7/view","Eye-care awareness reel","",""],
+  ["Dhathri · Customer story (Neethu)","Reels","https://drive.google.com/file/d/1yEds9j5e0wjWZreH26GCXT4DhzyyiAWt/view","Testimonial reel","",""],
+  ["GMRL Labs · Blood tests after 40","Reels","https://drive.google.com/file/d/1CJ0Kd-9qERPYs6SZ2sFBIW-LRlmpEpLp/view","Diagnostic lab health-awareness reel","",""],
+  ["Dr Niranjana · Why are my hands cold?","Reels","https://drive.google.com/file/d/1pxV7tQJbFP42YlO7jTV5OttcIYy1BeZn/view","Doctor-led health tip","",""],
+  ["Hat Innovations · Agency reel","Reels","https://drive.google.com/file/d/165L1P97P772-ui4kJ6UqvJ6z9lRwJ0Vq/view","Agency promo reel","",""],
+  ["LedgerX · Business ad","Reels","https://drive.google.com/file/d/1EbfVRkwbDG1y3YIoprHnh09OQrkoVOOL/view","Promo reel for an accounting firm","",""],
+  ["Incredible Art · Customer story","Reels","https://drive.google.com/file/d/1M54nZWNduyf7e7TfFM-na9c2EZMsYHnW/view","Testimonial reel","",""],
+  ["Logic · Student achievement","Reels","https://drive.google.com/file/d/1Au6rklUqu8d3jx0sh0yIDuRHDY-SEQJQ/view","Results celebration reel","",""],
+  ["GMRL Labs · Signs of kidney disease","Reels","https://drive.google.com/file/d/10YJHtRt6R8BGaLKaJAkyTTJKSvwDzxwk/view","Diagnostic lab health-awareness reel","","yes"],
+  ["Dr Niranjana · Bad breath","Reels","https://drive.google.com/file/d/1KJYTS6CYPLHkbM2wbda2hFy8CnrRChC0/view","Doctor-led health tip","","yes"],
+  ["Sree Aasram · Women's health","Reels","https://drive.google.com/file/d/15uoWptzLpMFxkao32ebSnKVRG5q4saIY/view","Ayurveda clinic awareness reel","",""],
+  ["Dhathri · Customer story","Reels","https://drive.google.com/file/d/1ZKh9eF5AfmLRScJoHQQziKu9ZmM_868j/view","Testimonial reel","","yes"],
+  ["LedgerX · Kuzhimandhi","Reels","https://drive.google.com/file/d/1CgvYOTOB1xoF1RBxkra99avCv547LymM/view","Client story reel for an accounting firm","",""]
 ];
 
 /* ---------------- no need to edit below ---------------- */
-const ORDER = ["Podcasts","Reels","Ads","Theme videos"];
-const CAT_ALIASES = {podcast:"Podcasts",podcasts:"Podcasts",reel:"Reels",reels:"Reels",short:"Reels",shorts:"Reels",ad:"Ads",ads:"Ads","meta ad":"Ads","meta ads":"Ads",theme:"Theme videos","theme video":"Theme videos","theme videos":"Theme videos"};
+const ORDER = ["Long-form","Ads","Campaigns","Reels"];
+const CAT_ALIASES = {"long-form":"Long-form",longform:"Long-form",podcast:"Long-form",podcasts:"Long-form",episode:"Long-form",campaign:"Campaigns",campaigns:"Campaigns",reel:"Reels",reels:"Reels",short:"Reels",shorts:"Reels",ad:"Ads",ads:"Ads","meta ad":"Ads","meta ads":"Ads",theme:"Campaigns","theme video":"Campaigns","theme videos":"Campaigns"};
 const normCat = c => { const k=(c||"").trim(); return CAT_ALIASES[k.toLowerCase()] || k || "Other"; };
 const driveId = url => { const m=String(url||"").match(/\/d\/([\w-]{10,})|[?&]id=([\w-]{10,})/); return m ? (m[1]||m[2]) : null; };
 
@@ -242,8 +289,8 @@ function parseCSV(text){
 function fromRows(rows){
   const head=rows[0].map(h=>h.trim().toLowerCase());
   const col=(...names)=>head.findIndex(h=>names.some(n=>h.includes(n)));
-  const ti=col("title","name"), ci=col("category","type"), li=col("link","url","drive"), di=col("client","description","note");
-  return rows.slice(1).map(r=>({title:(r[ti]||"").trim(), cat:normCat(r[ci]), id:driveId(r[li]), sub:di>=0?(r[di]||"").trim():""}))
+  const ti=col("title","name"), ci=col("category","type"), li=col("link","url","drive"), di=col("description","client","note"), fi=col("featured"), mi=col("more");
+  return rows.slice(1).map(r=>({title:(r[ti]||"").trim(), cat:normCat(r[ci]), id:driveId(r[li]), sub:di>=0?(r[di]||"").trim():"", featured:fi>=0&&/^(y|yes|true|1)$/i.test((r[fi]||"").trim()), more:mi>=0&&/^(y|yes|true|1)$/i.test((r[mi]||"").trim())}))
              .filter(v=>v.id);
 }
 
@@ -254,7 +301,7 @@ async function loadVideos(){
       if(res.ok){ const list=fromRows(parseCSV(await res.text())); if(list.length) return list; }
     }catch(e){ console.warn("Sheet could not load, using built-in list", e); }
   }
-  return DEFAULT_VIDEOS.map(([title,cat,link,sub])=>({title,cat:normCat(cat),id:driveId(link),sub}));
+  return DEFAULT_VIDEOS.map(([title,cat,link,sub,f,mo])=>({title,cat:normCat(cat),id:driveId(link),sub,featured:!!f,more:!!mo}));
 }
 
 const grid=document.getElementById("grid"), tabsEl=document.getElementById("tabs"), countEl=document.getElementById("count");
@@ -263,32 +310,79 @@ let VIDEOS=[], current="All";
 function card(v){
   const b=document.createElement("button");
   b.className="card"; b.type="button";
-  b.innerHTML=`<div class="thumb"><img alt="" loading="lazy" referrerpolicy="no-referrer"><span class="tag"></span><span class="play"></span></div><div class="info"><b></b><span></span></div>`;
+  b.innerHTML=`<div class="thumb"><img alt="" loading="lazy" referrerpolicy="no-referrer"><span class="tag"></span><span class="fmt"></span><span class="play"></span></div><div class="info"><b></b><span></span></div>`;
   b.querySelector(".tag").textContent=v.cat;
   b.querySelector(".info b").textContent=v.title||"Untitled";
   b.querySelector(".info span").textContent=v.sub||"";
   const img=b.querySelector("img"), th=b.querySelector(".thumb");
-  img.onload=()=>{ if(img.naturalWidth&&img.naturalHeight){ v.portrait=img.naturalHeight>img.naturalWidth; th.style.aspectRatio=img.naturalWidth+"/"+img.naturalHeight; } img.classList.add("loaded"); };
+  img.onload=()=>{ if(img.naturalWidth&&img.naturalHeight){ const r=img.naturalWidth/img.naturalHeight; v.portrait=r<1; th.style.aspectRatio=img.naturalWidth+"/"+img.naturalHeight; const f=b.querySelector(".fmt"); f.textContent=r<0.7?"9:16":r<0.9?"4:5":r<1.15?"1:1":"16:9"; f.classList.add("on"); } img.classList.add("loaded"); };
   img.onerror=()=>{ th.style.aspectRatio="16/9"; th.insertAdjacentHTML("beforeend",'<span class="fallback">Preview unavailable.<br>Check the file is shared as “Anyone with the link”.</span>'); };
   img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w800`;
   b.onclick=()=>openPlayer(v);
   return b;
 }
 
+const CATS=()=>[...new Set(VIDEOS.map(v=>v.cat))].sort((a,b)=>{const ia=ORDER.indexOf(a), ib=ORDER.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib);});
+const gridOf=list=>{ const g=document.createElement("div"); g.className="grid"; g.replaceChildren(...list.map(card)); return g; };
+const expanded=new Set();
+function block(c,list){
+  const wrap=document.createDocumentFragment();
+  const main=list.filter(v=>!v.more), extra=list.filter(v=>v.more);
+  wrap.append(gridOf(expanded.has(c)?list:main));
+  if(extra.length && !expanded.has(c)){
+    const b=document.createElement("button"); b.type="button"; b.className="more-btn";
+    b.textContent=`Show ${extra.length} more`;
+    b.onclick=()=>{ expanded.add(c); render(); };
+    wrap.append(b);
+  }
+  return wrap;
+}
+
 function render(){
-  const list = current==="All" ? VIDEOS : VIDEOS.filter(v=>v.cat===current);
-  grid.replaceChildren(...list.map(card));
-  if(!list.length) grid.innerHTML='<p class="empty">No videos in this category yet.</p>';
-  countEl.textContent = list.length + (list.length===1?" video":" videos");
+  const feat=VIDEOS.find(v=>v.featured);
+  grid.replaceChildren();
+  if(current==="All"){
+    CATS().forEach(c=>{
+      const list=VIDEOS.filter(v=>v.cat===c && v!==feat); if(!list.length) return;
+      const sec=document.createElement("div"); sec.className="section";
+      const h=document.createElement("div"); h.className="section-head";
+      h.innerHTML="<h3></h3><span></span>"; h.querySelector("h3").textContent=c; h.querySelector("span").textContent=list.length+(list.length===1?" video":" videos");
+      sec.append(h,block(c,list)); grid.append(sec);
+    });
+  } else {
+    const list=VIDEOS.filter(v=>v.cat===current);
+    list.length ? grid.append(block(current,list)) : grid.innerHTML='<p class="empty">No videos in this category yet.</p>';
+  }
+  document.getElementById("featured").style.display = current==="All" ? "" : "none";
   [...tabsEl.children].forEach(t=>t.setAttribute("aria-selected", t.dataset.cat===current));
 }
 
 function buildTabs(){
-  const cats=[...new Set(VIDEOS.map(v=>v.cat))].sort((a,b)=>{const ia=ORDER.indexOf(a), ib=ORDER.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib);});
-  tabsEl.replaceChildren(...["All",...cats].map(c=>{
-    const t=document.createElement("button"); t.className="tab"; t.type="button"; t.role="tab"; t.dataset.cat=c; t.textContent=c;
+  tabsEl.replaceChildren(...["All",...CATS()].map(c=>{
+    const n=c==="All"?VIDEOS.length:VIDEOS.filter(v=>v.cat===c).length;
+    const t=document.createElement("button"); t.className="tab"; t.type="button"; t.role="tab"; t.dataset.cat=c;
+    t.textContent=c; const sm=document.createElement("small"); sm.textContent=n; t.append(sm);
     t.onclick=()=>{current=c; render();}; return t;
   }));
+}
+
+function buildFeatured(){
+  const v=VIDEOS.find(x=>x.featured), host=document.getElementById("featured");
+  if(!v){ host.remove(); return; }
+  const b=document.createElement("button"); b.className="featured"; b.type="button";
+  b.innerHTML='<div class="thumb"><img alt="" loading="eager" referrerpolicy="no-referrer"><span class="play"></span></div><div class="fbody"><span class="kicker"></span><h3></h3><p></p><span class="watch">▶ Watch the episode</span></div>';
+  b.querySelector(".kicker").textContent="Featured · "+v.cat;
+  b.querySelector("h3").textContent=v.title; b.querySelector("p").textContent=v.sub||"";
+  const img=b.querySelector("img"); img.onload=()=>img.classList.add("loaded"); img.src=`https://drive.google.com/thumbnail?id=${v.id}&sz=w1280`;
+  b.onclick=()=>openPlayer(v); host.replaceChildren(b);
+}
+
+function buildClients(){
+  const names=[...new Set(VIDEOS.map(v=>v.title.split(/ · | × /)[0].trim()))].filter(Boolean);
+  const el=document.getElementById("clients");
+  el.innerHTML='<span class="label">Brands</span>';
+  names.forEach(n=>{ const s=document.createElement("span"); s.textContent=n; el.append(s); });
+  countEl.textContent=VIDEOS.length+" projects · "+names.length+" brands";
 }
 
 const modal=document.getElementById("modal"), frame=document.getElementById("frame"), player=document.getElementById("player");
@@ -305,7 +399,7 @@ modal.addEventListener("click",e=>{ if(e.target===modal) closePlayer(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closePlayer(); });
 document.getElementById("yr").textContent=new Date().getFullYear();
 
-loadVideos().then(list=>{ VIDEOS=list; buildTabs(); render(); });
+loadVideos().then(list=>{ VIDEOS=list; buildFeatured(); buildClients(); buildTabs(); render(); });
 </script>
 </body>
 </html>
